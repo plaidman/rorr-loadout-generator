@@ -2,48 +2,48 @@ export const huntress = {
     name: 'Huntress',
     color: '#D53D3D',
     subdir: '/images/huntress/',
-    portrait: 'portrait.webp',
+    portrait: 'Huntress_portrait.webp',
     skin: [
-        'skin_1.webp',
-        'skin_2.webp',
-        'skin_3.webp',
-        'skin_4.webp',
-        'skin_5.webp',
-        'skin_6.webp',
+        'HuntressPortraitRed.webp',
+        'HuntressPortraitGrey.webp',
+        'HuntressPortraitBlue.webp',
+        'HuntressPortraitGreen.webp',
+        'HuntressPortraitCyan.webp',
+        'HuntressPortraitPurple.webp',
     ],
     primary: [
         {
-            icon: 'primary_main.webp',
+            icon: 'HuntressZ1.webp',
             name: 'Strafe (main)',
         },
         {
-            icon: 'primary_alt.webp',
+            icon: 'HuntressZ2.webp',
             name: 'Pierce (alt)',
         },
     ],
     secondary: [
         {
-            icon: 'secondary_main.webp',
+            icon: 'HuntressX1.webp',
             name: 'Laser Glaive (main)',
         },
         {
-            icon: 'secondary_alt.webp',
+            icon: 'HuntressX2.webp',
             name: 'Laser Cyclone (alt)',
         },
     ],
     utility: [
         {
-            icon: 'utility_main.webp',
+            icon: 'HuntressC1.webp',
             name: 'Blink (main)',
         },
         {
-            icon: 'utility_alt.webp',
+            icon: 'HuntressC2.webp',
             name: 'Warp Dart (alt)',
         },
     ],
     special: [
         {
-            icon: 'special_main.webp',
+            icon: 'HuntressV1.webp',
             name: 'Cluster Bomb (main)',
         },
     ],

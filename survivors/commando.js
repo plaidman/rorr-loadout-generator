@@ -2,49 +2,49 @@ export const commando = {
     name: 'Commando',
     color: '#ED9616',
     subdir: '/images/commando/',
-    portrait: 'portrait.webp',
+    portrait: 'Commando_portait.webp',
     skin: [
-        'skin_1.webp',
-        'skin_2.webp',
-        'skin_3.webp',
-        'skin_4.webp',
-        'skin_5.webp',
-        'skin_6.webp',
-        'skin_7.webp',
+        'CommandoPortrait1.webp',
+        'CommandoPortrait2.webp',
+        'CommandoPortrait3.webp',
+        'CommandoPortrait4.webp',
+        'CommandoPortrait5.webp',
+        'CommandoPortrait6.webp',
+        'CommandoPortraitPROV.webp',
     ],
     primary: [
         {
-            icon: 'primary_main.webp',
+            icon: 'CommandoZ1.webp',
             name: 'Double Tap (main)',
         },
     ],
     secondary: [
         {
-            icon: 'secondary_main.webp',
+            icon: 'CommandoX1.webp',
             name: 'Full Metal Jacket (main)',
         },
         {
-            icon: 'secondary_alt.webp',
+            icon: 'CommandoX2.webp',
             name: 'Combat Knife (alt)',
         },
     ],
     utility: [
         {
-            icon: 'utility_main.webp',
+            icon: 'CommandoC1.webp',
             name: 'Tactical Dive (main)',
         },
         {
-            icon: 'utility_alt.webp',
+            icon: 'CommandoC2.webp',
             name: 'Tactical Slide (alt)',
         },
     ],
     special: [
         {
-            icon: 'special_main.webp',
+            icon: 'CommandoV1.webp',
             name: 'Suppressive Fire (main)',
         },
         {
-            icon: 'special_alt.webp',
+            icon: 'CommandoV2.webp',
             name: 'Point-Blank (alt)',
         },
     ],

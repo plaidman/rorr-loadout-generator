@@ -2,12 +2,15 @@ import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es
 import { blank } from './survivors/blank.js';
 import { commando } from './survivors/commando.js';
 import { huntress } from './survivors/huntress.js';
+import { enforcer } from './survivors/enforcer.js';
 
 Array.prototype.sample = function () {
     return this[Math.floor(Math.random() * this.length)];
 }
 
-const allSurvivors = [commando, huntress];
+const allSurvivors = [
+    commando, huntress, enforcer
+];
 
 createApp({
     survivor: blank,
