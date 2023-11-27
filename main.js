@@ -3,13 +3,14 @@ import { blank } from './survivors/blank.js';
 import { commando } from './survivors/commando.js';
 import { huntress } from './survivors/huntress.js';
 import { enforcer } from './survivors/enforcer.js';
+import { bandit } from './survivors/bandit.js';
 
 Array.prototype.sample = function () {
     return this[Math.floor(Math.random() * this.length)];
 }
 
 const allSurvivors = [
-    commando, huntress, enforcer
+    commando, huntress, enforcer, bandit,
 ];
 
 createApp({
