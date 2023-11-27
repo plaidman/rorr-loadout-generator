@@ -6,27 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RoRR Loadout Generator!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/images/favicon.ico">
+    <script type="module" src="/main.js"></script>
 </head>
 
-<style>
-    .card {
-        width: 350px;
-    }
-
-    body {
-        min-height: 100vh;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), url('images/bg.jpg');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-    }
-
-    .survivor-color {
-        color: #ED9616;
-    }
-</style>
-
-<body>
+<body v-scope @vue:mounted="generate">
     <section class="section">
         <div class="container is-fluid">
             <h1 class="title has-text-light">Risk of Rain Returns</h1>
@@ -37,8 +22,7 @@
                     <div class="card">
                         <div class="card-image has-background-grey-darker">
                             <figure class="image">
-                                <img id="survivor-portrait" src="images/commando/portrait.webp"
-                                    alt="survivor portrait" />
+                                <img id="survivor-portrait" :src="portrait" alt="survivor portrait" />
                             </figure>
                         </div>
 
@@ -46,45 +30,41 @@
                             <div class="columns is-variable is-2 is-mobile">
                                 <div class="column is-one-third">
                                     <figure class="image">
-                                        <img id="survivor-icon" src="images/commando/icon_1.webp" alt="survivor icon" />
+                                        <img id="survivor-icon" :src="skin" alt="survivor icon" />
                                     </figure>
                                 </div>
 
                                 <div class="column">
-                                    <p id="survivor-name" class="survivor-color title is-4 mb-2">Commando</p>
+                                    <p id="survivor-name" class="title is-4 mb-2" :style="color">{{survivor.name}}</p>
 
                                     <div class="columns is-variable is-1 is-mobile">
                                         <div class="column">
-                                            <img id="primary-icon" src="images/commando/primary_main.webp"
-                                                alt="primary icon" />
+                                            <img id="primary-icon" :src="primaryIcon" alt="primary icon" />
                                         </div>
 
                                         <div class="column">
-                                            <img id="secondary-icon" src="images/commando/secondary_main.webp"
-                                                alt="secondary icon" />
+                                            <img id="secondary-icon" :src="secondaryIcon" alt="secondary icon" />
                                         </div>
 
                                         <div class="column">
-                                            <img id="utility-icon" src="images/commando/utility_main.webp"
-                                                alt="utility icon" />
+                                            <img id="utility-icon" :src="utilityIcon" alt="utility icon" />
                                         </div>
 
                                         <div class="column">
-                                            <img id="special-icon" src="images/commando/special_main.webp"
-                                                alt="special icon" />
+                                            <img id="special-icon" :src="specialIcon" alt="special icon" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <ul class="ml-2 mb-5">
-                                <li id="primary-name" class="has-text-light">Primary</li>
-                                <li id="secondary-name" class="has-text-light">Full Metal Jacket (main)</li>
-                                <li id="utility-name" class="has-text-light">Utility</li>
-                                <li id="special-name" class="has-text-light">Special</li>
+                                <li id="primary-name" class="has-text-light">{{primary.name}}</li>
+                                <li id="secondary-name" class="has-text-light">{{secondary.name}}</li>
+                                <li id="utility-name" class="has-text-light">{{utility.name}}</li>
+                                <li id="special-name" class="has-text-light">{{special.name}}</li>
                             </ul>
 
-                            <button class="button" id="generate">Generate New Loadout</button>
+                            <button class="button" @click="generate">Generate New Loadout</button>
                         </div>
                     </div>
                 </div>
