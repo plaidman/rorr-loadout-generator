@@ -1,4 +1,5 @@
 import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es.js';
+
 import { blank } from './survivors/blank.js';
 import { commando } from './survivors/commando.js';
 import { huntress } from './survivors/huntress.js';
@@ -29,6 +30,7 @@ const allSurvivors = [
 ];
 
 createApp({
+    prev: [blank.name, '', ''],
     survivor: blank,
     skin: blank.subdir + blank.skin[0],
 
@@ -57,8 +59,12 @@ createApp({
     },
 
     generate() {
-        this.survivor = allSurvivors.sample();
+        while (this.prev.includes(this.survivor.name)) {
+            this.survivor = allSurvivors.sample();
+        }
 
+        this.prev.shift();
+        this.prev.push(this.survivor.name);
         this.skin = this.survivor.subdir + this.survivor.skin.sample();
         this.primary = this.survivor.primary.sample();
         this.secondary = this.survivor.secondary.sample();
