@@ -1,7 +1,7 @@
 export const asdf = {
     name: 'ASDF',
     color: '',
-    subdir: '/images/asdf/',
+    subdir: 'images/asdf/',
     portrait: 'ASDF_portrait.webp',
     skin: [
         'ASDFPortrait0.webp',

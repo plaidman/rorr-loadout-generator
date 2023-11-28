@@ -1,7 +1,7 @@
 export const blank = {
     name: 'Survivor',
     color: '#F5F5F5',
-    subdir: '/images/',
+    subdir: 'images/',
     portrait: 'blank.webp',
     skin: [
         'blank.webp',

@@ -1,7 +1,7 @@
 export const acrid = {
     name: 'Acrid',
     color: '#C9F24D',
-    subdir: '/images/acrid/',
+    subdir: 'images/acrid/',
     portrait: 'Acrid_portrait.webp',
     skin: [
         'AcridPortrait0.webp',

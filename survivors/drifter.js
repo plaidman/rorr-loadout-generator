@@ -1,7 +1,7 @@
 export const drifter = {
     name: 'Drifter',
     color: '#6B8188',
-    subdir: '/images/drifter/',
+    subdir: 'images/drifter/',
     portrait: 'Drifter_portrait.webp',
     skin: [
         'DrifterPortrait0.webp',

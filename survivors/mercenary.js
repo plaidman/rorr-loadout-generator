@@ -1,7 +1,7 @@
 export const mercenary = {
     name: 'Mercenary',
     color: '#A6DBF1',
-    subdir: '/images/mercenary/',
+    subdir: 'images/mercenary/',
     portrait: 'Mercenary_portrait.webp',
     skin: [
         'MercenaryPortrait0.webp',

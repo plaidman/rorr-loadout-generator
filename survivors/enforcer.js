@@ -1,7 +1,7 @@
 export const enforcer = {
     name: 'Enforcer',
     color: '#7992C0',
-    subdir: '/images/enforcer/',
+    subdir: 'images/enforcer/',
     portrait: 'Enforcer_portrait.webp',
     skin: [
         'EnforcerPortrait0.webp',

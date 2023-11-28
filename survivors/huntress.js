@@ -1,7 +1,7 @@
 export const huntress = {
     name: 'Huntress',
     color: '#D86A6A',
-    subdir: '/images/huntress/',
+    subdir: 'images/huntress/',
     portrait: 'Huntress_portrait.webp',
     skin: [
         'HuntressPortraitRed.webp',
