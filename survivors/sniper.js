@@ -1,6 +1,6 @@
 export const sniper = {
     name: 'Sniper',
-    color: '#505273',
+    color: '#6b6fb3',
     subdir: '/images/sniper/',
     portrait: 'Sniper_portrait.webp',
     skin: [

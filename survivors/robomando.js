@@ -1,6 +1,6 @@
 export const robomando = {
     name: 'Robomando',
-    color: '#667B82',
+    color: '#528799',
     subdir: '/images/robomando/',
     portrait: 'Robomando_portrait.png',
     skin: [
