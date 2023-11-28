@@ -1,6 +1,6 @@
 export const miner = {
     name: 'Miner',
-    color: '#A8B862',
+    color: '#CAB940',
     subdir: '/images/miner/',
     portrait: 'Miner_portrait.webp',
     skin: [

@@ -1,6 +1,6 @@
 export const commando = {
     name: 'Commando',
-    color: '#ED9616',
+    color: '#C6833F',
     subdir: '/images/commando/',
     portrait: 'Commando_portrait.webp',
     skin: [

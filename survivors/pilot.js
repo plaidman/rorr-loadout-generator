@@ -1,6 +1,6 @@
 export const pilot = {
     name: 'Pilot',
-    color: '#38554D',
+    color: '#38964D',
     subdir: '/images/pilot/',
     portrait: 'Pilot_portrait.webp',
     skin: [

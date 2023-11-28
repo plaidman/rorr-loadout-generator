@@ -1,6 +1,6 @@
 export const engineer = {
     name: 'Engineer',
-    color: '#5FE286',
+    color: '#8D73A6',
     subdir: '/images/engineer/',
     portrait: 'Engineer_portrait.webp',
     skin: [

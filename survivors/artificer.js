@@ -1,6 +1,6 @@
 export const artificer = {
     name: 'Artificer',
-    color: '#F7C1FD',
+    color: '#EAD2A1',
     subdir: '/images/artificer/',
     portrait: 'Artificer_portrait.webp',
     skin: [

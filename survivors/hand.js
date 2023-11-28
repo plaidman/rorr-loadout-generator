@@ -1,6 +1,6 @@
 export const hand = {
     name: 'HAN-D',
-    color: '#8EAEB0',
+    color: '#95B6B8',
     subdir: '/images/hand/',
     portrait: 'Han-d_portrait.webp',
     skin: [
