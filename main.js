@@ -5,6 +5,7 @@ import { huntress } from './survivors/huntress.js';
 import { enforcer } from './survivors/enforcer.js';
 import { bandit } from './survivors/bandit.js';
 import { hand } from './survivors/hand.js';
+import { engineer } from './survivors/engineer.js';
 
 Array.prototype.sample = function () {
     return this[Math.floor(Math.random() * this.length)];
@@ -12,8 +13,7 @@ Array.prototype.sample = function () {
 
 const allSurvivors = [
     commando, huntress, enforcer, bandit,
-    hand,
-    // engineer,
+    hand, engineer,
     // miner,
     // sniper,
     // acrid,
