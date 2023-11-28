@@ -8,6 +8,7 @@ import { hand } from './survivors/hand.js';
 import { engineer } from './survivors/engineer.js';
 import { miner } from './survivors/miner.js';
 import { sniper } from './survivors/sniper.js';
+import { acrid } from './survivors/acrid.js';
 
 Array.prototype.sample = function () {
     return this[Math.floor(Math.random() * this.length)];
@@ -16,7 +17,7 @@ Array.prototype.sample = function () {
 const allSurvivors = [
     commando, huntress, enforcer, bandit,
     hand, engineer, miner, sniper,
-    // acrid,
+    acrid,
     // mercenary,
     // loader,
     // chef,
