@@ -16,7 +16,7 @@ import { pilot } from './survivors/pilot.js';
 import { artificer } from './survivors/artificer.js';
 import { drifter } from './survivors/drifter.js';
 import { robomando } from './survivors/robomando.js';
-import { artifactNames, artifactIcon } from '/artifacts.js';
+import { artifactNames, artifactIcon } from './artifacts.js';
 
 Array.prototype.sample = function () {
     return this[Math.floor(Math.random() * this.length)];
