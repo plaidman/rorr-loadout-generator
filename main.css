@@ -6,3 +6,12 @@ body {
     min-height: 100vh;
     background-color: #13162d;
 }
+
+.artifacts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: space-around;
+    padding: .5rem;
+}

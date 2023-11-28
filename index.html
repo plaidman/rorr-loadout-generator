@@ -17,56 +17,59 @@
             <h1 class="title has-text-light">Risk of Rain Returns</h1>
             <p class="subtitle has-text-light">Loadout Generator</p>
 
-            <div class="columns">
-                <div class="column">
-                    <div class="card has-background-black-ter">
-                        <div class="card-image">
+            <div class="card has-background-black-ter">
+                <div class="card-content has-background-grey-darker">
+
+                    <div class="columns is-variable is-2 is-mobile mb-2">
+                        <div class="column is-one-third">
                             <figure class="image">
-                                <img id="survivor-portrait" :src="portrait" alt="survivor portrait" />
+                                <img :src="survivor.subdir + skin" alt="survivor icon" />
                             </figure>
                         </div>
 
-                        <div class="card-content has-background-grey-darker">
-                            <div class="columns is-variable is-2 is-mobile">
-                                <div class="column is-one-third">
+                        <div class="column">
+                            <p class="title is-4 mb-2" :style="{ color: survivor.color }">{{survivor.name}}</p>
+
+                            <div class="columns is-variable is-1 is-mobile">
+                                <div class="column">
                                     <figure class="image">
-                                        <img id="survivor-icon" :src="skin" alt="survivor icon" />
+                                        <img :src="survivor.subdir + primary.icon" alt="primary icon" />
                                     </figure>
                                 </div>
 
                                 <div class="column">
-                                    <p id="survivor-name" class="title is-4 mb-2" :style="color">{{survivor.name}}</p>
+                                    <figure class="image">
+                                        <img :src="survivor.subdir + secondary.icon" alt="secondary icon" />
+                                    </figure>
+                                </div>
 
-                                    <div class="columns is-variable is-1 is-mobile">
-                                        <div class="column">
-                                            <img id="primary-icon" :src="primaryIcon" alt="primary icon" />
-                                        </div>
+                                <div class="column">
+                                    <figure class="image">
+                                        <img :src="survivor.subdir + utility.icon" alt="utility icon" />
+                                    </figure>
+                                </div>
 
-                                        <div class="column">
-                                            <img id="secondary-icon" :src="secondaryIcon" alt="secondary icon" />
-                                        </div>
-
-                                        <div class="column">
-                                            <img id="utility-icon" :src="utilityIcon" alt="utility icon" />
-                                        </div>
-
-                                        <div class="column">
-                                            <img id="special-icon" :src="specialIcon" alt="special icon" />
-                                        </div>
-                                    </div>
+                                <div class="column">
+                                    <figure class="image">
+                                        <img :src="survivor.subdir + special.icon" alt="special icon" />
+                                    </figure>
                                 </div>
                             </div>
-
-                            <ul class="ml-2 mb-5">
-                                <li id="primary-name" class="has-text-light">{{primary.name}}</li>
-                                <li id="secondary-name" class="has-text-light">{{secondary.name}}</li>
-                                <li id="utility-name" class="has-text-light">{{utility.name}}</li>
-                                <li id="special-name" class="has-text-light">{{special.name}}</li>
-                            </ul>
-
-                            <button class="button" @click="generate">Generate New Loadout</button>
                         </div>
                     </div>
+
+                    <ul class="ml-2 mb-5">
+                        <li class="has-text-light">{{primary.name}}</li>
+                        <li class="has-text-light">{{secondary.name}}</li>
+                        <li class="has-text-light">{{utility.name}}</li>
+                        <li class="has-text-light">{{special.name}}</li>
+                    </ul>
+
+                    <div class="artifacts box has-background-black-ter mb-5">
+                        <img v-for="artifact in artifacts" :src="artifact" />
+                    </div>
+
+                    <button class="button mt-2" @click="generate">Generate New Loadout</button>
                 </div>
             </div>
         </div>
