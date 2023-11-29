@@ -20,6 +20,7 @@ body {
     cursor: pointer;
     color: hsl(0, 0%, 96%);
     user-select: none;
+    text-align: center;
 }
 
 .card-footer-item:hover {
