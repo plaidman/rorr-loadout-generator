@@ -23,6 +23,13 @@ Array.prototype.sample = function (rng) {
     return this[Math.floor(rng() * this.length)];
 }
 
+const challengeSurvivors = [
+    commando, huntress, enforcer, bandit,
+    hand, engineer, miner, sniper,
+    acrid, mercenary, loader, chef,
+    pilot, artificer, drifter,
+];
+
 const allSurvivors = [
     commando, huntress, enforcer, bandit,
     hand, engineer, miner, sniper,
@@ -88,7 +95,7 @@ createApp({
         this.isDaily = true;
 
         const rng = new Math.seedrandom(date.toUTCString());
-        this.survivor = allSurvivors.sample(rng);
+        this.survivor = challengeSurvivors.sample(rng);
         this.generate(rng);
     },
 
