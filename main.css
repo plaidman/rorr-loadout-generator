@@ -15,3 +15,20 @@ body {
     align-content: space-around;
     padding: .5rem;
 }
+
+.card-footer-item {
+    cursor: pointer;
+    color: hsl(0, 0%, 96%);
+    user-select: none;
+}
+
+.card-footer-item:hover {
+    color: hsl(0, 0%, 80%);
+    background-color: hsl(0, 0%, 19%);
+}
+
+.card-footer-item.disabled {
+    color: hsl(0, 0%, 50%);
+    background-color: hsl(0, 0%, 21%);
+    cursor: auto;
+}

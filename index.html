@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="main.css">
     <link rel="icon" href="images/favicon.ico">
     <script type="module" src="main.js"></script>
+    <script src="https://unpkg.com/seedrandom@3.0.5/seedrandom.min.js"></script>
 </head>
 
-<body v-scope @vue:mounted="generate">
+<body v-scope @vue:mounted="random">
     <section class="section">
         <div class="container is-fluid">
             <h1 class="title has-text-light">Risk of Rain Returns</h1>
-            <p class="subtitle has-text-light">Loadout Generator</p>
+            <p class="subtitle has-text-light">{{subtitle}}</p>
 
             <div class="card has-background-black-ter">
                 <div class="card-content has-background-grey-darker">
@@ -65,12 +66,19 @@
                         <li class="has-text-light">{{special.name}}</li>
                     </ul>
 
-                    <div class="artifacts box has-background-black-ter mb-5">
+                    <div class="artifacts box has-background-black-ter">
                         <img v-for="artifact in artifacts" :src="artifact" />
                     </div>
-
-                    <button class="button mt-2" @click="generate">Generate New Loadout</button>
                 </div>
+
+                <footer class="card-footer has-background-grey-darker">
+                    <div role="button" @click="random" class="card-footer-item">
+                        New Loadout
+                    </div>
+                    <div role="button" @click="challenge" :class="{ 'card-footer-item': true, disabled: isDaily }">
+                        Daily Challenge
+                    </div>
+                </footer>
             </div>
         </div>
     </section>

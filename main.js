@@ -17,9 +17,10 @@ import { artificer } from './survivors/artificer.js';
 import { drifter } from './survivors/drifter.js';
 import { robomando } from './survivors/robomando.js';
 import { artifactNames, artifactIcon } from './artifacts.js';
+import { toMonthDayString } from './dateutil.js';
 
-Array.prototype.sample = function () {
-    return this[Math.floor(Math.random() * this.length)];
+Array.prototype.sample = function (rng) {
+    return this[Math.floor(rng() * this.length)];
 }
 
 const allSurvivors = [
@@ -30,9 +31,12 @@ const allSurvivors = [
 ];
 
 createApp({
-    prev: [blank.name, '', ''],
+    prev: ['', '', ''],
     survivor: blank,
     skin: blank.skin[0],
+
+    subtitle: 'Randomized Loadout',
+    isDaily: false,
 
     primary: blank.primary[0],
     secondary: blank.secondary[0],
@@ -57,27 +61,51 @@ createApp({
     ],
     artifactNames: [],
 
-    generate() {
-        while (this.prev.includes(this.survivor.name)) {
-            this.survivor = allSurvivors.sample();
-        }
+    random() {
+        this.subtitle = 'Randomized Loadout';
+        this.isDaily = false;
 
+        const rng = new Math.seedrandom();
+
+        do {
+            this.survivor = allSurvivors.sample(rng);
+        } while (this.prev.includes(this.survivor.name));
         this.prev.shift();
         this.prev.push(this.survivor.name);
+        this.generate(rng);
+    },
 
-        this.skin = this.survivor.skin.sample();
-        this.primary = this.survivor.primary.sample();
-        this.secondary = this.survivor.secondary.sample();
-        this.utility = this.survivor.utility.sample();
-        this.special = this.survivor.special.sample();
+    challenge() {
+        const date = new Date();
+        date.setUTCHours(0, 0, 0, 0);
+
+        const newSub = `Daily Challenge for ${toMonthDayString(date)}`;
+        if (newSub === this.subtitle) {
+            return;
+        }
+
+        this.subtitle = newSub;
+        this.isDaily = true;
+
+        const rng = new Math.seedrandom(date.toUTCString());
+        this.survivor = allSurvivors.sample(rng);
+        this.generate(rng);
+    },
+
+    generate(rng) {
+        this.skin = this.survivor.skin.sample(rng);
+        this.primary = this.survivor.primary.sample(rng);
+        this.secondary = this.survivor.secondary.sample(rng);
+        this.utility = this.survivor.utility.sample(rng);
+        this.special = this.survivor.special.sample(rng);
 
         // pick 2-5 artifacts
-        const numArtis = Math.floor(Math.random() * 4) + 2;
+        const numArtis = Math.floor(rng() * 4) + 2;
 
         this.artifactNames = [];
         const pickedArtis = [];
         while (pickedArtis.length < numArtis) {
-            const pickedArti = Math.floor(Math.random() * artifactNames.length);
+            const pickedArti = Math.floor(rng() * artifactNames.length);
 
             if (!pickedArtis.includes(pickedArti)) {
                 pickedArtis.push(pickedArti);
@@ -97,6 +125,7 @@ createApp({
             utility: this.utility.name,
             special: this.special.name,
             artifacts: this.artifactNames,
+            isDaily: this.isDaily,
         });
     },
 }).mount();
