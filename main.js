@@ -16,7 +16,7 @@ import { pilot } from './survivors/pilot.js';
 import { artificer } from './survivors/artificer.js';
 import { drifter } from './survivors/drifter.js';
 import { robomando } from './survivors/robomando.js';
-import { artifactNames, artifactIcon } from './artifacts.js';
+import { artifactNames } from './artifacts.js';
 import { toMonthDayString } from './dateutil.js';
 
 Array.prototype.sample = function (rng) {
@@ -44,20 +44,6 @@ createApp({
     special: blank.special[0],
 
     artifacts: [
-        'images/artifacts/Artifact1_0.png',
-        'images/artifacts/Artifact2_0.png',
-        'images/artifacts/Artifact3_0.png',
-        'images/artifacts/Artifact4_0.png',
-        'images/artifacts/Artifact5_0.png',
-        'images/artifacts/Artifact6_0.png',
-        'images/artifacts/Artifact7_0.png',
-        'images/artifacts/Artifact8_0.png',
-        'images/artifacts/Artifact9_0.png',
-        'images/artifacts/Artifact10_0.png',
-        'images/artifacts/Artifact11_0.png',
-        'images/artifacts/Artifact12_0.png',
-        'images/artifacts/Artifact13_0.png',
-        'images/artifacts/Artifact14_0.png',
     ],
     artifactNames: [],
 
@@ -124,22 +110,31 @@ createApp({
         // pick 2-5 artifacts
         const numArtis = Math.floor(rng() * 4) + 2;
 
-        this.artifactNames = [];
         const pickedArtis = [];
         while (pickedArtis.length < numArtis) {
             const pickedArti = Math.floor(rng() * artifactNames.length);
 
-            if (!pickedArtis.includes(pickedArti)) {
+            if (pickedArtis.includes(pickedArti)) continue;
+
+            const isInExclude = exclude.some((item) => {
+                return item.toLowerCase() === artifactNames[pickedArti].toLowerCase();
+            });
+            if (!isInExclude) {
                 pickedArtis.push(pickedArti);
                 this.artifactNames.push(artifactNames[pickedArti]);
             }
         }
 
-        this.artifacts = [];
-        for (let i = 0; i < artifactNames.length; i++) {
-            this.artifacts.push(artifactIcon(i, pickedArtis.includes(i)));
+        this.artifacts = pickedArtis;
+    },
+
+    getArtifactIcon(index) {
+        let toggled = '0';
+        if (this.artifacts.includes(index)) {
+            toggled = '1';
         }
 
+        return `images/artifacts/Artifact${index + 1}_${toggled}.png`;
     },
 
     outputPicks() {

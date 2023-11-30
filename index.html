@@ -67,7 +67,7 @@
                     </ul>
 
                     <div class="artifacts box has-background-black-ter">
-                        <img v-for="artifact in artifacts" :src="artifact" />
+                        <img v-for="(n,i) in 14" :src="getArtifactIcon(i)" />
                     </div>
                 </div>
 
