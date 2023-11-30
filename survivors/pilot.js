@@ -9,6 +9,7 @@ export const pilot = {
         'PilotPortrait2.webp',
         'PilotPortrait3.webp',
         'PilotPortrait4.webp',
+        // 'PilotPortrait4.webp',
         'PilotPortraitPROV.webp',
     ],
     primary: [

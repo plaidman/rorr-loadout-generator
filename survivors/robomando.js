@@ -8,7 +8,7 @@ export const robomando = {
         'RobomandoPortrait1.png',
         'RobomandoPortrait2.png',
         'RobomandoPortrait3.png',
-        'RobomandoPortraitPROV.png',
+        // 'RobomandoPortraitPROV.png',
     ],
     primary: [
         {

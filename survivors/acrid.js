@@ -9,6 +9,7 @@ export const acrid = {
         'AcridPortrait2.webp',
         'AcridPortrait3.webp',
         'AcridPortrait4.webp',
+        'AcridPortrait5.webp',
         'AcridPortraitPROV.webp',
     ],
     primary: [
