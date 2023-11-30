@@ -23,13 +23,6 @@ Array.prototype.sample = function (rng) {
     return this[Math.floor(rng() * this.length)];
 }
 
-const challengeSurvivors = [
-    commando, huntress, enforcer, bandit,
-    hand, engineer, miner, sniper,
-    acrid, mercenary, loader, chef,
-    pilot, artificer, drifter,
-];
-
 const allSurvivors = [
     commando, huntress, enforcer, bandit,
     hand, engineer, miner, sniper,
@@ -74,12 +67,12 @@ createApp({
 
         const rng = new Math.seedrandom();
 
-        do {
-            this.survivor = allSurvivors.sample(rng);
-        } while (this.prev.includes(this.survivor.name));
+        this.pickSurvivor(rng, this.prev);
+        this.pickArtifacts(rng, []);
+        this.outputPicks();
+
         this.prev.shift();
         this.prev.push(this.survivor.name);
-        this.generate(rng);
     },
 
     challenge() {
@@ -88,6 +81,7 @@ createApp({
 
         const newSub = `Daily Challenge for ${toMonthDayString(date)}`;
         if (newSub === this.subtitle) {
+            // if we're already looking at today's daily, we don't need to regenerate it.
             return;
         }
 
@@ -95,17 +89,38 @@ createApp({
         this.isDaily = true;
 
         const rng = new Math.seedrandom(date.toUTCString());
-        this.survivor = challengeSurvivors.sample(rng);
-        this.generate(rng);
+
+        this.pickSurvivor(rng, ['robomando']);
+        this.pickArtifacts(rng, ['command']);
+        this.outputPicks();
     },
 
-    generate(rng) {
+    pickSurvivor(rng, exclude) {
+        let survivor;
+        let count = 0;
+
+        while (true) {
+            survivor = allSurvivors.sample(rng);
+
+            const isInExclude = exclude.some((item) => {
+                if (item.toLowerCase() === survivor.name.toLowerCase()) return true;
+                if (survivor.name === 'HAN-D' && item.toLowerCase() === 'hand') return true;
+                return false;
+            });
+
+            if (!isInExclude || count > 10) break;
+            count++;
+        }
+
+        this.survivor = survivor;
         this.skin = this.survivor.skin.sample(rng);
         this.primary = this.survivor.primary.sample(rng);
         this.secondary = this.survivor.secondary.sample(rng);
         this.utility = this.survivor.utility.sample(rng);
         this.special = this.survivor.special.sample(rng);
+    },
 
+    pickArtifacts(rng, exclude) {
         // pick 2-5 artifacts
         const numArtis = Math.floor(rng() * 4) + 2;
 
@@ -125,6 +140,9 @@ createApp({
             this.artifacts.push(artifactIcon(i, pickedArtis.includes(i)));
         }
 
+    },
+
+    outputPicks() {
         console.log('generated', {
             survivor: this.survivor.name,
             primary: this.primary.name,
