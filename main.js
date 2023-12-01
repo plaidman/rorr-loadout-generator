@@ -62,13 +62,13 @@ createApp({
         }
 
         if (timerData.hours === 24 && timerData.minutes === 0) {
-            this.timerString = 'NOW!';
+            this.timerString = 'starts NOW!';
         } else if (timerData.hours > 0) {
-            this.timerString = `in ${timerData.hours}h ${timerData.minutes}m`;
+            this.timerString = `ends ${timerData.hours}h ${timerData.minutes}m`;
         } else if (timerData.minutes === 1) {
-            this.timerString = `in ${timerData.minutes} minute`;
+            this.timerString = `ends ${timerData.minutes} min`;
         } else {
-            this.timerString = `in ${timerData.minutes} minutes`;
+            this.timerString = `ends ${timerData.minutes} mins`;
         }
 
         setTimeout(this.updateTimer.bind(this), timerData.millis);
