@@ -44,6 +44,7 @@ createApp({
     special: blank.special[0],
 
     artifacts: [],
+    artifactNames: artifactNames,
 
     random() {
         this.subtitle = 'Randomized Loadout';

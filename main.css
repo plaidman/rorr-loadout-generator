@@ -8,8 +8,18 @@ body {
     font-family: "in-game-pixel", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+[data-tooltip]:after,
+[data-tooltip]:before {
+    font-family: "in-game-pixel", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
 body.alt-font {
     font-family: "in-game-alt", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.alt-font [data-tooltip]:after,
+.alt-font [data-tooltip]:before {
+    font-family: "in-game-alt", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 .artifacts {
@@ -52,8 +62,6 @@ body.alt-font {
 .card-footer-item:last-child:hover {
     border-bottom-right-radius: .25rem;
 }
-
-
 
 @font-face {
     font-family: "in-game-pixel";
