@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/seedrandom@3.0.5/seedrandom.min.js"></script>
 </head>
 
-<body v-scope @vue:mounted="random">
+<body v-scope @vue:mounted="initialize">
     <section class="section">
         <div class="container is-fluid">
             <h1 class="title has-text-light">Risk of Rain Returns</h1>
@@ -86,6 +86,7 @@
                     </div>
                     <div role="button" @click="challenge" :class="{ 'card-footer-item': true, 'disabled': isDaily }">
                         Daily Challenge
+                        <span class="is-size-7">resets in {{timerString}}</span>
                     </div>
                 </footer>
             </div>

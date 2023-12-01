@@ -1,14 +1,29 @@
-const monthLookup = [
-    'Jan', 'Feb', 'Mar', 'Apr',
-    'May', 'Jun', 'Jul', 'Aug',
-    'Sep', 'Oct', 'Nov', 'Dec',
-];
+import { DateTime } from 'https://cdn.jsdelivr.net/npm/luxon@3.4.4/+esm'
 
-export function toMonthDayString(date) {
-    const month = date.getUTCMonth();
-    const day = date.getUTCDate();
+export function monthDayString() {
+    const day = DateTime.utc().startOf('day');
+    return `${day.toFormat('LLL d')}${getOrdinal(day.day)}`;
+}
 
-    return `${monthLookup[month]} ${day}${getOrdinal(day)}`;
+export function seedString() {
+    const day = DateTime.utc().startOf('day');
+    return day.toUnixInteger();
+}
+
+export function getTimerData() {
+    const now = DateTime.utc();
+
+    const nextDay = now.startOf('day').plus({ day: 1 });
+    const duration = nextDay.diff(now).shiftTo('hours', 'minutes');
+
+    const nextMinute = now.startOf('minute').plus({ minute: 1 });
+    const millis = nextMinute.diff(now).milliseconds;
+
+    return {
+        millis,
+        minutes: Math.ceil(duration.minutes),
+        hours: duration.hours
+    };
 }
 
 function getOrdinal(num) {

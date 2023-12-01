@@ -17,7 +17,7 @@ import { artificer } from './survivors/artificer.js';
 import { drifter } from './survivors/drifter.js';
 import { robomando } from './survivors/robomando.js';
 import { artifactNames } from './artifacts.js';
-import { toMonthDayString } from './dateutil.js';
+import { monthDayString, seedString, getTimerData } from './dateutil.js';
 
 Array.prototype.sample = function (rng) {
     return this[Math.floor(rng() * this.length)];
@@ -36,6 +36,7 @@ createApp({
     skin: blank.skin[0],
 
     subtitle: 'Randomized Loadout',
+    timerString: '',
     isDaily: false,
 
     primary: blank.primary[0],
@@ -45,6 +46,25 @@ createApp({
 
     artifacts: [],
     artifactNames: artifactNames,
+
+    initialize() {
+        this.updateTimer();
+        this.random();
+    },
+
+    updateTimer() {
+        const timerData = getTimerData();
+
+        if (timerData.hours > 0) {
+            this.timerString = `${timerData.hours}h ${timerData.minutes}m`;
+        } else if (timerData.minutes === 1) {
+            this.timerString = `${timerData.minutes} minute`
+        } else {
+            this.timerString = `${timerData.minutes} minutes`
+        }
+
+        setTimeout(this.updateTimer.bind(this), timerData.millis)
+    },
 
     random() {
         this.subtitle = 'Randomized Loadout';
@@ -61,19 +81,16 @@ createApp({
     },
 
     challenge() {
-        const date = new Date();
-        date.setUTCHours(0, 0, 0, 0);
+        this.isDaily = true;
 
-        const newSub = `Daily Challenge for ${toMonthDayString(date)}`;
+        const newSub = `Daily Challenge for ${monthDayString()}`;
         if (newSub === this.subtitle) {
             // if we're already looking at today's daily, we don't need to regenerate it.
             return;
         }
-
         this.subtitle = newSub;
-        this.isDaily = true;
 
-        const rng = new Math.seedrandom(date.toUTCString());
+        const rng = new Math.seedrandom(seedString());
 
         this.pickSurvivor(rng, ['robomando']);
         this.pickArtifacts(rng, ['command']);
