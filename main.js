@@ -43,9 +43,7 @@ createApp({
     utility: blank.utility[0],
     special: blank.special[0],
 
-    artifacts: [
-    ],
-    artifactNames: [],
+    artifacts: [],
 
     random() {
         this.subtitle = 'Randomized Loadout';
@@ -121,7 +119,6 @@ createApp({
             });
             if (!isInExclude) {
                 pickedArtis.push(pickedArti);
-                this.artifactNames.push(artifactNames[pickedArti]);
             }
         }
 
@@ -144,7 +141,7 @@ createApp({
             secondary: this.secondary.name,
             utility: this.utility.name,
             special: this.special.name,
-            artifacts: this.artifactNames,
+            artifacts: this.artifacts.map((i) => { return artifactNames[i] }),
             isDaily: this.isDaily,
         });
     },
