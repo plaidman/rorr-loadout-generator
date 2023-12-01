@@ -41,6 +41,20 @@ body.alt-font {
     cursor: auto;
 }
 
+.card-footer-item:first-child,
+.card-footer-item.disabled:first-child,
+.card-footer-item:first-child:hover {
+    border-bottom-left-radius: .25rem;
+}
+
+.card-footer-item:last-child,
+.card-footer-item.disabled:last-child,
+.card-footer-item:last-child:hover {
+    border-bottom-right-radius: .25rem;
+}
+
+
+
 @font-face {
     font-family: "in-game-pixel";
     src: url("fonts/rzpix.ttf");
