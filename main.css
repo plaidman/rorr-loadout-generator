@@ -1,10 +1,15 @@
 .card {
-    width: 350px;
+    width: 22rem;
 }
 
 body {
     min-height: 100vh;
     background-color: #13162d;
+    font-family: "in-game-pixel", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body.alt-font {
+    font-family: "in-game-alt", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .artifacts {
@@ -34,4 +39,14 @@ body {
     color: hsl(0, 0%, 50%);
     background-color: hsl(0, 0%, 21%);
     cursor: auto;
+}
+
+@font-face {
+    font-family: "in-game-pixel";
+    src: url("fonts/rzpix.ttf");
+}
+
+@font-face {
+    font-family: "in-game-alt";
+    src: url("fonts/NotoSansDisplay_SemiCondensed-Regular.ttf");
 }
