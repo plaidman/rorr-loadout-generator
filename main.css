@@ -46,6 +46,11 @@ body.alt-font {
     }
 }
 
+.card-footer-item.new-daily {
+    color: #FFA500;
+    animation: new-daily-color 3s infinite linear;
+}
+
 .card-footer-item.disabled {
     color: hsl(0, 0%, 50%);
     background-color: hsl(0, 0%, 21%);
@@ -72,4 +77,14 @@ body.alt-font {
 @font-face {
     font-family: "in-game-alt";
     src: url("fonts/NotoSansDisplay_SemiCondensed-Regular.ttf");
+}
+
+@keyframes new-daily-color {
+    50% {
+        color: #FFFF00;
+    }
+
+    100% {
+        color: #FFA500;
+    }
 }

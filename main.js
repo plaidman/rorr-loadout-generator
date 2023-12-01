@@ -38,6 +38,7 @@ createApp({
     subtitle: 'Randomized Loadout',
     timerString: '',
     isDaily: false,
+    newDaily: false,
 
     primary: blank.primary[0],
     secondary: blank.secondary[0],
@@ -55,15 +56,28 @@ createApp({
     updateTimer() {
         const timerData = getTimerData();
 
-        if (timerData.hours > 0) {
-            this.timerString = `${timerData.hours}h ${timerData.minutes}m`;
-        } else if (timerData.minutes === 1) {
-            this.timerString = `${timerData.minutes} minute`
-        } else {
-            this.timerString = `${timerData.minutes} minutes`
+        if (timerData.minutes === 60) {
+            timerData.minutes = 0;
+            timerData.hours++;
         }
 
-        setTimeout(this.updateTimer.bind(this), timerData.millis)
+        if (timerData.hours === 24 && timerData.minutes === 0) {
+            this.timerString = 'NOW!';
+        } else if (timerData.hours > 0) {
+            this.timerString = `in ${timerData.hours}h ${timerData.minutes}m`;
+        } else if (timerData.minutes === 1) {
+            this.timerString = `in ${timerData.minutes} minute`;
+        } else {
+            this.timerString = `in ${timerData.minutes} minutes`;
+        }
+
+        setTimeout(this.updateTimer.bind(this), timerData.millis);
+        if (timerData.hours === 0 && timerData.minutes === 1) {
+            setTimeout(() => {
+                this.newDaily = true;
+                this.isDaily = false;
+            }, timerData.millis);
+        }
     },
 
     random() {
@@ -82,6 +96,7 @@ createApp({
 
     challenge() {
         this.isDaily = true;
+        this.newDaily = false;
 
         const newSub = `Daily Challenge for ${monthDayString()}`;
         if (newSub === this.subtitle) {
