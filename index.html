@@ -15,6 +15,18 @@
 </head>
 
 <body v-scope @vue:mounted="initialize">
+    <noscript>
+        <div class="notification is-danger is-light">
+            <p class="subtitle mb-3">
+                Hey! Seeing some weird stuff down there? 👇
+            </p>
+
+            This site requires javascript to run. Some browsers (like opera) and ad-blocking extensions can disable
+            javascript by default. There are no ads on this site, so making an exception in your ad-blocker will make
+            things work again.
+        </div>
+    </noscript>
+
     <section class="section">
         <div class="container is-fluid">
             <h1 class="title has-text-light">Risk of Rain Returns</h1>
