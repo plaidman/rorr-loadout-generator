@@ -108,7 +108,7 @@ createApp({
         const rng = new Math.seedrandom(seedString());
 
         this.pickSurvivor(rng, ['robomando']);
-        this.pickArtifacts(rng, ['command']);
+        this.pickArtifacts(rng, ['command', 'prestige']);
         this.outputPicks();
     },
 
