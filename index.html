@@ -85,8 +85,7 @@
                     </ul>
 
                     <div class="artifacts box has-background-black-ter">
-                        <figure v-for="(n,i) in 14" :data-tooltip="artifactNames[i]"
-                            :class="{ 'image': true, 'has-tooltip-arrow': true, 'has-tooltip-bottom': i > 6 }">
+                        <figure v-for="(n,i) in 14" :data-tooltip="artifactNames[i]" class="image has-tooltip-arrow">
                             <img :src="getArtifactIcon(i)" />
                         </figure>
                     </div>
