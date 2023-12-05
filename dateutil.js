@@ -15,15 +15,18 @@ export function getTimerData() {
 
     const nextDay = now.startOf('day').plus({ day: 1 });
     const duration = nextDay.diff(now).shiftTo('hours', 'minutes');
+    let minutes = Math.ceil(duration.minutes);
+    let hours = duration.hours;
 
     const nextMinute = now.startOf('minute').plus({ minute: 1 });
     const millis = nextMinute.diff(now).milliseconds;
 
-    return {
-        millis,
-        minutes: Math.ceil(duration.minutes),
-        hours: duration.hours
-    };
+    if (minutes === 60) {
+        minutes = 0;
+        hours++;
+    }
+
+    return { millis, minutes, hours };
 }
 
 function getOrdinal(num) {

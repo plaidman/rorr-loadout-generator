@@ -56,11 +56,6 @@ createApp({
     updateTimer() {
         const timerData = getTimerData();
 
-        if (timerData.minutes === 60) {
-            timerData.minutes = 0;
-            timerData.hours++;
-        }
-
         if (timerData.hours === 24 && timerData.minutes === 0) {
             this.timerString = 'starts NOW!';
         } else if (timerData.hours > 0) {
