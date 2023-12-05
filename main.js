@@ -2,6 +2,7 @@ import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es
 import { blank } from './survivors/blank.js';
 import { artifactNames, pickArtifacts } from './artifacts.js';
 import { monthDayString, seedString, getTimerData } from './dateutil.js';
+import { hashToLoadout, loadoutToHash } from './hashutil.js';
 import { allSurvivors, pickSurvivor } from './survivors.js';
 
 Array.prototype.pickIndex = function (rng) {
@@ -10,14 +11,10 @@ Array.prototype.pickIndex = function (rng) {
 
 createApp({
     prev: ['', '', ''],
+
+    loadout: {},
     survivor: blank,
     skin: blank.skin[0],
-
-    subtitle: 'Randomized Loadout',
-    timerString: '',
-    isDaily: false,
-    newDaily: false,
-
     primary: blank.primary[0],
     secondary: blank.secondary[0],
     utility: blank.utility[0],
@@ -26,9 +23,23 @@ createApp({
     artifacts: [],
     artifactNames: artifactNames,
 
+    subtitle: 'Randomized Loadout',
+    timerString: '',
+    isDaily: false,
+    newDaily: false,
+    queryString: '',
+
     initialize() {
         this.updateTimer();
-        this.random();
+
+        const params = new URLSearchParams(window.location.search);
+        const loadoutString = params.get('lo');
+
+        if (loadoutString) {
+            this.generated(loadoutString);
+        } else {
+            this.random();
+        }
     },
 
     updateTimer() {
@@ -53,6 +64,22 @@ createApp({
         }
     },
 
+    generated(loadoutString) {
+        this.subtitle = 'Shared Loadout';
+        this.isDaily = false;
+        this.queryString = loadoutString;
+
+        const loadout = hashToLoadout(loadoutString);
+
+        this.survivor = allSurvivors[loadout.survivorNum];
+        this.skin = this.survivor.skin[loadout.skin];
+        this.primary = this.survivor.primary[loadout.primary];
+        this.secondary = this.survivor.secondary[loadout.secondary]
+        this.utility = this.survivor.utility[loadout.utility];
+        this.special = this.survivor.special[loadout.special];
+        this.artifacts = loadout.artifacts;
+    },
+
     random() {
         this.subtitle = 'Randomized Loadout';
         this.isDaily = false;
@@ -61,6 +88,7 @@ createApp({
 
         this.pickSurvivor(rng, this.prev);
         this.artifacts = pickArtifacts(rng, []);
+        this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
         this.outputPicks();
 
         this.prev.shift();
@@ -82,18 +110,19 @@ createApp({
 
         this.pickSurvivor(rng, ['robomando']);
         this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
+        this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
         this.outputPicks();
     },
 
     pickSurvivor(rng, exclude) {
-        const loadout = pickSurvivor(rng, exclude);
+        this.loadout = pickSurvivor(rng, exclude);
 
-        this.survivor = allSurvivors[loadout.survivorNum];
-        this.skin = this.survivor.skin[loadout.skin];
-        this.primary = this.survivor.primary[loadout.primary];
-        this.secondary = this.survivor.secondary[loadout.secondary]
-        this.utility = this.survivor.utility[loadout.utility];
-        this.special = this.survivor.special[loadout.special];
+        this.survivor = allSurvivors[this.loadout.survivorNum];
+        this.skin = this.survivor.skin[this.loadout.skin];
+        this.primary = this.survivor.primary[this.loadout.primary];
+        this.secondary = this.survivor.secondary[this.loadout.secondary]
+        this.utility = this.survivor.utility[this.loadout.utility];
+        this.special = this.survivor.special[this.loadout.special];
     },
 
     getArtifactIcon(index) {
@@ -107,6 +136,7 @@ createApp({
 
     outputPicks() {
         console.log('generated', {
+            queryString: this.queryString,
             survivor: this.survivor.name,
             primary: this.primary.name,
             secondary: this.secondary.name,
