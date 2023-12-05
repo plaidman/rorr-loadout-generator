@@ -16,19 +16,12 @@ import { pilot } from './survivors/pilot.js';
 import { artificer } from './survivors/artificer.js';
 import { drifter } from './survivors/drifter.js';
 import { robomando } from './survivors/robomando.js';
-import { artifactNames } from './artifacts.js';
+import { artifactNames, pickArtifacts } from './artifacts.js';
 import { monthDayString, seedString, getTimerData } from './dateutil.js';
 
-Array.prototype.sample = function (rng) {
-    return this[Math.floor(rng() * this.length)];
-}
-
-const allSurvivors = [
-    commando, huntress, enforcer, bandit,
-    hand, engineer, miner, sniper,
-    acrid, mercenary, loader, chef,
-    pilot, artificer, drifter, robomando,
-];
+Array.prototype.pickIndex = function (rng) {
+    return Math.floor(rng() * this.length);
+};
 
 createApp({
     prev: ['', '', ''],
@@ -82,7 +75,7 @@ createApp({
         const rng = new Math.seedrandom();
 
         this.pickSurvivor(rng, this.prev);
-        this.pickArtifacts(rng, []);
+        this.artifacts = pickArtifacts(rng, []);
         this.outputPicks();
 
         this.prev.shift();
@@ -103,7 +96,7 @@ createApp({
         const rng = new Math.seedrandom(seedString());
 
         this.pickSurvivor(rng, ['robomando']);
-        this.pickArtifacts(rng, ['command', 'prestige']);
+        this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
         this.outputPicks();
     },
 
@@ -130,27 +123,6 @@ createApp({
         this.secondary = this.survivor.secondary.sample(rng);
         this.utility = this.survivor.utility.sample(rng);
         this.special = this.survivor.special.sample(rng);
-    },
-
-    pickArtifacts(rng, exclude) {
-        // pick 2-5 artifacts
-        const numArtis = Math.floor(rng() * 4) + 2;
-
-        const pickedArtis = [];
-        while (pickedArtis.length < numArtis) {
-            const pickedArti = Math.floor(rng() * artifactNames.length);
-
-            if (pickedArtis.includes(pickedArti)) continue;
-
-            const isInExclude = exclude.some((item) => {
-                return item.toLowerCase() === artifactNames[pickedArti].toLowerCase();
-            });
-            if (!isInExclude) {
-                pickedArtis.push(pickedArti);
-            }
-        }
-
-        this.artifacts = pickedArtis;
     },
 
     getArtifactIcon(index) {
