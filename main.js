@@ -1,23 +1,8 @@
 import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es.js';
 import { blank } from './survivors/blank.js';
-import { commando } from './survivors/commando.js';
-import { huntress } from './survivors/huntress.js';
-import { enforcer } from './survivors/enforcer.js';
-import { bandit } from './survivors/bandit.js';
-import { hand } from './survivors/hand.js';
-import { engineer } from './survivors/engineer.js';
-import { miner } from './survivors/miner.js';
-import { sniper } from './survivors/sniper.js';
-import { acrid } from './survivors/acrid.js';
-import { mercenary } from './survivors/mercenary.js';
-import { loader } from './survivors/loader.js';
-import { chef } from './survivors/chef.js';
-import { pilot } from './survivors/pilot.js';
-import { artificer } from './survivors/artificer.js';
-import { drifter } from './survivors/drifter.js';
-import { robomando } from './survivors/robomando.js';
 import { artifactNames, pickArtifacts } from './artifacts.js';
 import { monthDayString, seedString, getTimerData } from './dateutil.js';
+import { allSurvivors, pickSurvivor } from './survivors.js';
 
 Array.prototype.pickIndex = function (rng) {
     return Math.floor(rng() * this.length);
@@ -101,28 +86,14 @@ createApp({
     },
 
     pickSurvivor(rng, exclude) {
-        let survivor;
-        let count = 0;
+        const loadout = pickSurvivor(rng, exclude);
 
-        while (true) {
-            survivor = allSurvivors.sample(rng);
-
-            const isInExclude = exclude.some((item) => {
-                if (item.toLowerCase() === survivor.name.toLowerCase()) return true;
-                if (survivor.name === 'HAN-D' && item.toLowerCase() === 'hand') return true;
-                return false;
-            });
-
-            if (!isInExclude || count > 10) break;
-            count++;
-        }
-
-        this.survivor = survivor;
-        this.skin = this.survivor.skin.sample(rng);
-        this.primary = this.survivor.primary.sample(rng);
-        this.secondary = this.survivor.secondary.sample(rng);
-        this.utility = this.survivor.utility.sample(rng);
-        this.special = this.survivor.special.sample(rng);
+        this.survivor = allSurvivors[loadout.survivorNum];
+        this.skin = this.survivor.skin[loadout.skin];
+        this.primary = this.survivor.primary[loadout.primary];
+        this.secondary = this.survivor.secondary[loadout.secondary]
+        this.utility = this.survivor.utility[loadout.utility];
+        this.special = this.survivor.special[loadout.special];
     },
 
     getArtifactIcon(index) {
