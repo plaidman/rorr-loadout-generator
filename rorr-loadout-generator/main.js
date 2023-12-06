@@ -32,16 +32,14 @@ createApp({
     initialize() {
         this.updateTimer();
 
-        console.log(window.location);
+        const route = window.location.pathname.split('/')[2];
+        console.log(route);
+        console.log(route.substring(2));
 
-        const params = new URLSearchParams(window.location.search);
-        const loadoutString = params.get('s');
-        const section = params.get('r');
-
-        if (section === 'daily') {
+        if (route === 'daily') {
             this.challenge();
-        } else if (loadoutString) {
-            this.generated(loadoutString);
+        } else if (route.startsWith('s-')) {
+            this.generated(route.substring(2));
         } else {
             this.random();
         }
