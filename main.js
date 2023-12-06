@@ -33,9 +33,12 @@ createApp({
         this.updateTimer();
 
         const params = new URLSearchParams(window.location.search);
-        const loadoutString = params.get('lo');
+        const loadoutString = params.get('s');
+        const section = params.get('r');
 
-        if (loadoutString) {
+        if (section === 'daily') {
+            this.challenge();
+        } else if (loadoutString) {
             this.generated(loadoutString);
         } else {
             this.random();
