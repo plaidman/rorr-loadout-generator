@@ -12,3 +12,4 @@ This site was written using the following technologies:
 - date/timer: [luxon](https://moment.github.io/luxon/#/)
 - rng: [seedrandom](http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html)
 - icons, font, and inspiration: [risk of rain returns](https://riskofrainreturns.wiki.gg/wiki/Risk_of_Rain_Returns_Wiki)
+- gh pages spa logic: [spa-github-pages](https://github.com/rafgraph/spa-github-pages)
