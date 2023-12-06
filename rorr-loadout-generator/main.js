@@ -33,8 +33,6 @@ createApp({
         this.updateTimer();
 
         const route = window.location.pathname.split('/')[2];
-        console.log(route);
-        console.log(route.substring(2));
 
         if (route === 'daily') {
             this.challenge();
