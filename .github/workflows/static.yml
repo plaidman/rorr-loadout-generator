@@ -33,10 +33,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      - name: Copy index.html
+        run: cp ./rorr-loadout-generator/index.html ./rorr-loadout-generator/404.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          # Upload entire repository
+          # Upload rorr-loadout-generator directory
           path: './rorr-loadout-generator'
       - name: Deploy to GitHub Pages
         id: deployment
