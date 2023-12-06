@@ -32,6 +32,8 @@ createApp({
     initialize() {
         this.updateTimer();
 
+        console.log(window.location);
+
         const params = new URLSearchParams(window.location.search);
         const loadoutString = params.get('s');
         const section = params.get('r');

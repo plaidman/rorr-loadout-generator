@@ -25,10 +25,7 @@
         // Otherwise, leave pathSegmentsToKeep as 0.
         var l = window.location;
 
-        var pathSegmentsToKeep = 0;
-        if (l.hostname === 'plaidman.github.io') {
-            pathSegmentsToKeep = 1;
-        }
+        var pathSegmentsToKeep = 1;
 
         l.replace(
             l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +

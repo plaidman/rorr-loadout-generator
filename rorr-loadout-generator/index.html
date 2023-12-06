@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css" />
-    <link rel="stylesheet" href="main.css" />
-    <link rel="icon" href="images/favicon.ico" />
-    <script src="routing.js"></script>
-    <script type="module" src="main.js"></script>
+    <link rel="stylesheet" href="/rorr-loadout-generator/main.css" />
+    <link rel="icon" href="/rorr-loadout-generator/images/favicon.ico" />
+    <script type="module" src="/rorr-loadout-generator/main.js"></script>
     <script src="https://unpkg.com/seedrandom@3.0.5/seedrandom.min.js"></script>
+    <script src="/rorr-loadout-generator/routing.js"></script>
 </head>
 
 <body v-scope @vue:mounted="initialize">
@@ -39,7 +39,7 @@
                     <div class="columns is-variable is-2 is-mobile mb-2">
                         <div class="column is-one-third">
                             <figure class="image">
-                                <img :src="survivor.subdir + skin" alt="survivor icon" />
+                                <img :src="'/rorr-loadout-generator/' + survivor.subdir + skin" alt="survivor icon" />
                             </figure>
                         </div>
 
@@ -50,28 +50,32 @@
                                 <div class="column">
                                     <figure class="image has-tooltip-bottom has-tooltip-arrow"
                                         :data-tooltip="primary.name">
-                                        <img :src="survivor.subdir + primary.icon" alt="primary icon" />
+                                        <img :src="'/rorr-loadout-generator/' + survivor.subdir + primary.icon"
+                                            alt="primary icon" />
                                     </figure>
                                 </div>
 
                                 <div class="column">
                                     <figure class="image has-tooltip-bottom has-tooltip-arrow"
                                         :data-tooltip="secondary.name">
-                                        <img :src="survivor.subdir + secondary.icon" alt="secondary icon" />
+                                        <img :src="'/rorr-loadout-generator/' + survivor.subdir + secondary.icon"
+                                            alt="secondary icon" />
                                     </figure>
                                 </div>
 
                                 <div class="column">
                                     <figure class="image has-tooltip-bottom has-tooltip-arrow"
                                         :data-tooltip="utility.name">
-                                        <img :src="survivor.subdir + utility.icon" alt="utility icon" />
+                                        <img :src="'/rorr-loadout-generator/' + survivor.subdir + utility.icon"
+                                            alt="utility icon" />
                                     </figure>
                                 </div>
 
                                 <div class="column">
                                     <figure class="image has-tooltip-bottom has-tooltip-arrow"
                                         :data-tooltip="special.name">
-                                        <img :src="survivor.subdir + special.icon" alt="special icon" />
+                                        <img :src="'/rorr-loadout-generator/' + survivor.subdir + special.icon"
+                                            alt="special icon" />
                                     </figure>
                                 </div>
                             </div>
@@ -87,7 +91,7 @@
 
                     <div class="artifacts box has-background-black-ter">
                         <figure v-for="(n,i) in 14" :data-tooltip="artifactNames[i]" class="image has-tooltip-arrow">
-                            <img :src="getArtifactIcon(i)" />
+                            <img :src="'/rorr-loadout-generator/' + getArtifactIcon(i)" />
                         </figure>
                     </div>
                 </div>
