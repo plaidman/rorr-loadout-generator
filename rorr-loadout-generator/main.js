@@ -89,11 +89,12 @@ createApp({
 
         this.pickSurvivor(rng, this.prev);
         this.artifacts = pickArtifacts(rng, []);
-        this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
-        this.outputPicks();
-
         this.prev.shift();
         this.prev.push(this.survivor.name);
+
+        this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
+        window.history.replaceState(null, '', `/rorr-loadout-generator/s-${this.queryString}`);
+        this.outputPicks();
     },
 
     challenge() {
@@ -111,7 +112,9 @@ createApp({
 
         this.pickSurvivor(rng, ['robomando']);
         this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
+
         this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
+        window.history.replaceState(null, '', '/rorr-loadout-generator/daily');
         this.outputPicks();
     },
 
