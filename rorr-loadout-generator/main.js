@@ -23,7 +23,8 @@ createApp({
     artifacts: [],
     artifactNames: artifactNames,
 
-    subtitle: 'Randomized Loadout',
+    title: 'Randomized Loadout',
+    subtitle: '',
     timerString: '',
     isDaily: false,
     newDaily: false,
@@ -126,7 +127,7 @@ createApp({
     },
 
     setRandomState() {
-        this.subtitle = 'Randomized Loadout';
+        this.subtitle = 'Random Loadout';
         this.isDaily = false;
 
         const rng = new Math.seedrandom();
@@ -144,7 +145,7 @@ createApp({
         this.isDaily = true;
         this.newDaily = false;
 
-        const newSub = `Daily Challenge for ${monthDayString()}`;
+        const newSub = `Daily Build for ${monthDayString()}`;
         if (newSub === this.subtitle) {
             // if we're already looking at today's daily, we don't need to regenerate it.
             return;

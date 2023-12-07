@@ -29,7 +29,8 @@
 
     <section class="section">
         <div class="container is-fluid">
-            <h1 class="title has-text-light">Risk of Rain Returns</h1>
+            <h1 class="title has-text-light is-not-mobile">Risk of Rain Returns</h1>
+            <h1 class="title has-text-light is-mobile">RoR Returns</h1>
             <p class="subtitle has-text-light">{{subtitle}}</p>
 
             <div class="card has-background-black-ter">
@@ -101,7 +102,7 @@
                     </div>
                     <div role="button" @click="dailyButton"
                         :class="{ 'card-footer-item': true, 'disabled': isDaily, 'new-daily': newDaily }">
-                        Daily Challenge
+                        Daily Build
                         <span class="is-size-7">{{timerString}}</span>
                     </div>
                 </footer>
