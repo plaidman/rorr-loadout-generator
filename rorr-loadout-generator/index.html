@@ -96,10 +96,10 @@
                 </div>
 
                 <footer class="card-footer has-background-grey-darker">
-                    <div role="button" @click="random" class="card-footer-item">
+                    <div role="button" @click="randomButton" class="card-footer-item">
                         Random Loadout
                     </div>
-                    <div role="button" @click="challenge"
+                    <div role="button" @click="dailyButton"
                         :class="{ 'card-footer-item': true, 'disabled': isDaily, 'new-daily': newDaily }">
                         Daily Challenge
                         <span class="is-size-7">{{timerString}}</span>

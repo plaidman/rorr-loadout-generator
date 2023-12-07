@@ -33,14 +33,56 @@ createApp({
         this.updateTimer();
 
         const route = window.location.pathname.split('/')[2];
+        this.handleRoute(route);
 
-        if (route === 'daily') {
-            this.challenge();
-        } else if (route.startsWith('s-')) {
-            this.generated(route.substring(2));
+        if (!route) {
+            window.history.replaceState(
+                { route: `s-${this.queryString}` },
+                '',
+                `/rorr-loadout-generator/s-${this.queryString}`,
+            );
         } else {
-            this.random();
+            window.history.replaceState(
+                { route },
+                '',
+                `/rorr-loadout-generator/${route}`,
+            );
         }
+
+        addEventListener('popstate', (event) => {
+            this.handleRoute(event.state.route);
+        });
+    },
+
+    handleRoute(route) {
+        if (route === 'daily') {
+            this.setDailyState();
+        } else if (route.startsWith('s-')) {
+            this.setSharedState(route.substring(2));
+        } else {
+            this.setRandomState();
+        }
+    },
+
+    randomButton() {
+        this.setRandomState();
+
+        window.history.pushState(
+            { route: `s-${this.queryString}` },
+            '',
+            `/rorr-loadout-generator/s-${this.queryString}`,
+        );
+    },
+
+    dailyButton() {
+        this.setDailyState();
+
+        window.history.pushState(
+            { route: 'daily' },
+            '',
+            '/rorr-loadout-generator/daily',
+        );
+
     },
 
     updateTimer() {
@@ -65,10 +107,9 @@ createApp({
         }
     },
 
-    generated(loadoutString) {
+    setSharedState(loadoutString) {
         this.subtitle = 'Shared Loadout';
         this.isDaily = false;
-        this.queryString = loadoutString;
 
         const loadout = hashToLoadout(loadoutString);
 
@@ -79,9 +120,12 @@ createApp({
         this.utility = this.survivor.utility[loadout.utility];
         this.special = this.survivor.special[loadout.special];
         this.artifacts = loadout.artifacts;
+
+        this.queryString = loadoutString;
+        this.outputPicks();
     },
 
-    random() {
+    setRandomState() {
         this.subtitle = 'Randomized Loadout';
         this.isDaily = false;
 
@@ -93,11 +137,10 @@ createApp({
         this.prev.push(this.survivor.name);
 
         this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
-        window.history.replaceState(null, '', `/rorr-loadout-generator/s-${this.queryString}`);
         this.outputPicks();
     },
 
-    challenge() {
+    setDailyState() {
         this.isDaily = true;
         this.newDaily = false;
 
@@ -114,7 +157,6 @@ createApp({
         this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
 
         this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
-        window.history.replaceState(null, '', '/rorr-loadout-generator/daily');
         this.outputPicks();
     },
 

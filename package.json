@@ -2,6 +2,6 @@
   "name": "rorr-loadout-generator",
   "version": "1.0.0",
   "scripts": {
-    "dev": "npx live-server --entry-file=rorr-loadout-generator/404.html --open=/rorr-loadout-generator/"
+    "dev": "npx live-server --entry-file=rorr-loadout-generator/index.html --open=/rorr-loadout-generator/"
   }
 }
