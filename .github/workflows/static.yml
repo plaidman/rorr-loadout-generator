@@ -35,6 +35,10 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Copy index.html
         run: cp ./rorr-loadout-generator/index.html ./rorr-loadout-generator/404.html
+      - name: set sha to env
+        uses: benjlevesque/short-sha@v2.2
+      - name: write sha to file
+        run: echo "$SHA" > ./rorr-loadout-generator/sha
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
