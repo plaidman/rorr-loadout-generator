@@ -1,12 +1,12 @@
 import { DateTime } from 'https://cdn.jsdelivr.net/npm/luxon@3.4.4/+esm'
 
-export function monthDayString() {
-    const day = DateTime.utc().startOf('day');
+export function monthDayString(addDays = 0) {
+    const day = DateTime.utc().startOf('day').plus({ day: addDays });
     return `${day.toFormat('LLL d')}${getOrdinal(day.day)}`;
 }
 
-export function seedString() {
-    const day = DateTime.utc().startOf('day');
+export function seedString(addDays = 0) {
+    const day = DateTime.utc().startOf('day').plus({ day: addDays });
     return day.toUnixInteger();
 }
 

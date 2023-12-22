@@ -145,14 +145,17 @@ createApp({
         this.isDaily = true;
         this.newDaily = false;
 
-        const newSub = `Daily Build for ${monthDayString()}`;
+        let addDays = parseInt(window.location.pathname.split('/')[3]);
+        if (isNaN(addDays)) addDays = 0;
+
+        const newSub = `Daily Build for ${monthDayString(addDays)}`;
         if (newSub === this.subtitle) {
             // if we're already looking at today's daily, we don't need to regenerate it.
             return;
         }
         this.subtitle = newSub;
 
-        const rng = new Math.seedrandom(seedString());
+        const rng = new Math.seedrandom(seedString(addDays));
 
         this.pickSurvivor(rng, ['robomando']);
         this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
