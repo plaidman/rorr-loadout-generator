@@ -9,6 +9,8 @@ Array.prototype.pickIndex = function (rng) {
     return Math.floor(rng() * this.length);
 };
 
+document.getElementById('noscript').style = "display: none";
+
 createApp({
     prev: ['', '', ''],
 

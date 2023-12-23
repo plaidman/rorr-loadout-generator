@@ -9,6 +9,37 @@ body {
     font-family: "in-game-pixel", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
+@keyframes show-noscript {
+    99% {
+        visibility: hidden;
+        height: 0px;
+    }
+
+    100% {
+        visibility: visible;
+        height: auto;
+    }
+}
+
+#noscript {
+    visibility: hidden;
+    margin: 0px;
+    height: 0px;
+    animation-name: show-noscript;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+}
+
+@font-face {
+    font-family: "in-game-pixel";
+    src: url("fonts/rzpix.ttf");
+}
+
+@font-face {
+    font-family: "in-game-alt";
+    src: url("fonts/NotoSansDisplay_SemiCondensed-Regular.ttf");
+}
+
 body.alt-font {
     font-family: "in-game-alt", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -79,16 +110,6 @@ body.alt-font {
 .card-footer-item.disabled:last-child,
 .card-footer-item:last-child:hover {
     border-bottom-right-radius: .25rem;
-}
-
-@font-face {
-    font-family: "in-game-pixel";
-    src: url("fonts/rzpix.ttf");
-}
-
-@font-face {
-    font-family: "in-game-alt";
-    src: url("fonts/NotoSansDisplay_SemiCondensed-Regular.ttf");
 }
 
 @keyframes new-daily-color {
