@@ -33,22 +33,17 @@ createApp({
     initialize() {
         this.updateTimer();
 
-        const route = window.location.pathname.split('/')[2];
+        let route = /\/[^\/]*\/(.*)/.exec(window.location.pathname)[1];
         this.handleRoute(route);
 
         if (!route) {
-            window.history.replaceState(
-                { route: `s-${this.queryString}` },
-                '',
-                `/rorr-loadout-generator/s-${this.queryString}`,
-            );
-        } else {
-            window.history.replaceState(
-                { route },
-                '',
-                `/rorr-loadout-generator/${route}`,
-            );
+            route = `s-${this.queryString}`;
         }
+
+        window.history.replaceState(
+            { route }, '',
+            `/rorr-loadout-generator/${route}`,
+        );
 
         addEventListener('popstate', (event) => {
             this.handleRoute(event.state.route);
@@ -56,8 +51,11 @@ createApp({
     },
 
     handleRoute(route) {
-        if (route === 'daily') {
-            this.setDailyState();
+        if (route.startsWith('daily')) {
+            let addDays = parseInt(window.location.pathname.split('/')[3]);
+            if (isNaN(addDays)) addDays = 0;
+
+            this.setDailyState(addDays);
         } else if (route.startsWith('s-')) {
             this.setSharedState(route.substring(2));
         } else {
@@ -68,10 +66,10 @@ createApp({
     randomButton() {
         this.setRandomState();
 
+        const route = `s-${this.queryString}`;
         window.history.pushState(
-            { route: `s-${this.queryString}` },
-            '',
-            `/rorr-loadout-generator/s-${this.queryString}`,
+            { route }, '',
+            `/rorr-loadout-generator/s-${route}`,
         );
     },
 
@@ -79,11 +77,9 @@ createApp({
         this.setDailyState();
 
         window.history.pushState(
-            { route: 'daily' },
-            '',
+            { route: 'daily' }, '',
             '/rorr-loadout-generator/daily',
         );
-
     },
 
     updateTimer() {
@@ -141,12 +137,9 @@ createApp({
         this.outputPicks();
     },
 
-    setDailyState() {
+    setDailyState(addDays = 0) {
         this.isDaily = true;
         this.newDaily = false;
-
-        let addDays = parseInt(window.location.pathname.split('/')[3]);
-        if (isNaN(addDays)) addDays = 0;
 
         const newSub = `Daily Build for ${monthDayString(addDays)}`;
         if (newSub === this.subtitle) {
