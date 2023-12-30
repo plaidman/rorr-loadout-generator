@@ -4,18 +4,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>RoRR Loadout Generator!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css" />
-    <link rel="stylesheet" href="/rorr-loadout-generator/main.css" />
     <link rel="icon" href="/rorr-loadout-generator/images/favicon.ico" />
-    <script type="module" src="/rorr-loadout-generator/main.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="stylesheet" href="/rorr-loadout-generator/main.css" />
     <script src="https://unpkg.com/seedrandom@3.0.5/seedrandom.min.js"></script>
+    <script type="module" src="/rorr-loadout-generator/main.js"></script>
 </head>
 
-<body v-scope @vue:mounted="initialize">
-    <div id="noscript" class="notification is-danger is-light">
+<body v-scope @vue:mounted="initialize()">
+    <div id="no-script" class="notification is-danger is-light">
         <p class="subtitle mb-3">
             Hey! Seeing some weird stuff down there? 👇
         </p>
@@ -36,8 +36,7 @@
 
                     <div class="columns is-variable is-2 is-mobile mb-2">
                         <div class="column is-one-third">
-                            <a :href="'https://riskofrainreturns.wiki.gg/wiki/' + survivor.name + '#Skills'"
-                                target="_blank">
+                            <a :href="getSurvivorLink()" target="_blank">
                                 <figure class="image">
                                     <img :src="'/rorr-loadout-generator/' + survivor.subdir + skin"
                                         alt="survivor icon" />
@@ -46,42 +45,45 @@
                         </div>
 
                         <div class="column">
-                            <a :href="'https://riskofrainreturns.wiki.gg/wiki/' + survivor.name + '#Skills'"
-                                target="_blank">
+                            <a :href="getSurvivorLink()" target="_blank">
                                 <p class="title is-4 mb-2" :style="{ color: survivor.color }">{{survivor.name}}</p>
                             </a>
 
                             <div class="columns is-variable is-1 is-mobile">
                                 <div class="column">
-                                    <figure class="image has-tooltip-bottom has-tooltip-arrow"
-                                        :data-tooltip="primary.name">
-                                        <img :src="'/rorr-loadout-generator/' + survivor.subdir + primary.icon"
-                                            alt="primary icon" />
-                                    </figure>
+                                    <a :href="getSurvivorLink()" target="_blank">
+                                        <figure class="image">
+                                            <img :src="'/rorr-loadout-generator/' + survivor.subdir + primary.icon"
+                                                alt="primary icon" />
+                                        </figure>
+                                    </a>
                                 </div>
 
                                 <div class="column">
-                                    <figure class="image has-tooltip-bottom has-tooltip-arrow"
-                                        :data-tooltip="secondary.name">
-                                        <img :src="'/rorr-loadout-generator/' + survivor.subdir + secondary.icon"
-                                            alt="secondary icon" />
-                                    </figure>
+                                    <a :href="getSurvivorLink()" target="_blank">
+                                        <figure class="image">
+                                            <img :src="'/rorr-loadout-generator/' + survivor.subdir + secondary.icon"
+                                                alt="secondary icon" />
+                                        </figure>
+                                    </a>
                                 </div>
 
                                 <div class="column">
-                                    <figure class="image has-tooltip-bottom has-tooltip-arrow"
-                                        :data-tooltip="utility.name">
-                                        <img :src="'/rorr-loadout-generator/' + survivor.subdir + utility.icon"
-                                            alt="utility icon" />
-                                    </figure>
+                                    <a :href="getSurvivorLink()" target="_blank">
+                                        <figure class="image">
+                                            <img :src="'/rorr-loadout-generator/' + survivor.subdir + utility.icon"
+                                                alt="utility icon" />
+                                        </figure>
+                                    </a>
                                 </div>
 
                                 <div class="column">
-                                    <figure class="image has-tooltip-bottom has-tooltip-arrow"
-                                        :data-tooltip="special.name">
-                                        <img :src="'/rorr-loadout-generator/' + survivor.subdir + special.icon"
-                                            alt="special icon" />
-                                    </figure>
+                                    <a :href="getSurvivorLink()" target="_blank">
+                                        <figure class="image">
+                                            <img :src="'/rorr-loadout-generator/' + survivor.subdir + special.icon"
+                                                alt="special icon" />
+                                        </figure>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -95,17 +97,23 @@
                     </ul>
 
                     <div class="artifacts box has-background-black-ter">
-                        <figure v-for="(n,i) in 14" :data-tooltip="artifactNames[i]" class="image has-tooltip-arrow">
+                        <figure v-for="(n,i) in 14" class="image is-clickable" @click="getArtifactDesc(i)">
                             <img :src="'/rorr-loadout-generator/' + getArtifactIcon(i)" />
                         </figure>
+                    </div>
+
+                    <div v-if="artifactDesc" class="has-text-light is-size-7 mx-2">
+                        <button class="delete is-pulled-right" @click="resetDesc()"></button>
+                        {{artifactDesc}}
                     </div>
                 </div>
 
                 <footer class="card-footer has-background-grey-darker">
-                    <div role="button" @click="randomButton" class="card-footer-item">
+                    <div role="button" @click="randomButton()" class="card-footer-item">
                         Random Loadout
                     </div>
-                    <div role="button" @click="dailyButton"
+
+                    <div role="button" @click="dailyButton()"
                         :class="{ 'card-footer-item': true, 'disabled': isDaily, 'new-daily': newDaily }">
                         Daily Build
                         <span class="is-size-7">{{timerString}}</span>

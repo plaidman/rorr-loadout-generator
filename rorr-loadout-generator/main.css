@@ -4,12 +4,7 @@ body {
     font-family: "in-game-pixel", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-[data-tooltip]:after,
-[data-tooltip]:before {
-    font-family: "in-game-pixel", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-}
-
-#noscript {
+#no-script {
     visibility: hidden;
     margin: 0px;
     padding-top: 0px;
@@ -50,11 +45,6 @@ body.alt-font {
     font-family: "in-game-alt", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.alt-font [data-tooltip]:after,
-.alt-font [data-tooltip]:before {
-    font-family: "in-game-alt", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-}
-
 @media screen and (max-width: 464px) {
     h1.is-not-mobile {
         display: none !important;
@@ -78,6 +68,10 @@ body.alt-font {
     align-items: center;
     align-content: space-around;
     padding: .5rem;
+}
+
+.artifacts:not(:last-child) {
+    margin-bottom: .5rem;
 }
 
 .card-footer-item {

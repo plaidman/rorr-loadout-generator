@@ -1,6 +1,6 @@
 import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es.js';
 import { blank } from './survivors/blank.js';
-import { artifactNames, pickArtifacts } from './artifacts.js';
+import { artifactDescriptions, artifactNames, pickArtifacts } from './artifacts.js';
 import { monthDayString, seedString, getTimerData } from './dateutil.js';
 import { hashToLoadout, loadoutToHash } from './hashutil.js';
 import { allSurvivors, pickSurvivor } from './survivors.js';
@@ -9,7 +9,7 @@ Array.prototype.pickIndex = function (rng) {
     return Math.floor(rng() * this.length);
 };
 
-document.getElementById('noscript').style = "display: none";
+document.getElementById('no-script').style = "display: none";
 
 createApp({
     prev: ['', '', ''],
@@ -24,6 +24,7 @@ createApp({
 
     artifacts: [],
     artifactNames: artifactNames,
+    artifactDesc: null,
 
     title: 'Randomized Loadout',
     subtitle: '',
@@ -177,6 +178,18 @@ createApp({
         }
 
         return `images/artifacts/Artifact${index + 1}_${toggled}.png`;
+    },
+
+    getSurvivorLink() {
+        return `https://riskofrainreturns.wiki.gg/wiki/${this.survivor.name}#Skills`;
+    },
+
+    getArtifactDesc(index) {
+        this.artifactDesc = artifactDescriptions[index];
+    },
+
+    resetDesc() {
+        this.artifactDesc = null;
     },
 
     outputPicks() {
