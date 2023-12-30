@@ -71,7 +71,7 @@ createApp({
         const route = `s-${this.queryString}`;
         window.history.pushState(
             { route }, '',
-            `/rorr-loadout-generator/s-${route}`,
+            `/rorr-loadout-generator/${route}`,
         );
     },
 
