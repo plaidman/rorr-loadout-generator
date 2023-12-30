@@ -36,13 +36,20 @@
 
                     <div class="columns is-variable is-2 is-mobile mb-2">
                         <div class="column is-one-third">
-                            <figure class="image">
-                                <img :src="'/rorr-loadout-generator/' + survivor.subdir + skin" alt="survivor icon" />
-                            </figure>
+                            <a :href="'https://riskofrainreturns.wiki.gg/wiki/' + survivor.name + '#Skills'"
+                                target="_blank">
+                                <figure class="image">
+                                    <img :src="'/rorr-loadout-generator/' + survivor.subdir + skin"
+                                        alt="survivor icon" />
+                                </figure>
+                            </a>
                         </div>
 
                         <div class="column">
-                            <p class="title is-4 mb-2" :style="{ color: survivor.color }">{{survivor.name}}</p>
+                            <a :href="'https://riskofrainreturns.wiki.gg/wiki/' + survivor.name + '#Skills'"
+                                target="_blank">
+                                <p class="title is-4 mb-2" :style="{ color: survivor.color }">{{survivor.name}}</p>
+                            </a>
 
                             <div class="columns is-variable is-1 is-mobile">
                                 <div class="column">
