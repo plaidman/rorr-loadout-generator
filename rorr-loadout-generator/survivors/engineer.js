@@ -1,7 +1,7 @@
 export const engineer = {
     name: 'Engineer',
     color: '#8D73A6',
-    subdir: 'images/engineer/',
+    subdir: 'images/survivors/engineer/',
     portrait: 'Engineer_portrait.webp',
     skin: [
         'EngineerPortrait0.webp',

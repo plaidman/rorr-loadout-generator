@@ -1,7 +1,7 @@
 export const bandit = {
     name: 'Bandit',
     color: '#E68BE9',
-    subdir: 'images/bandit/',
+    subdir: 'images/survivors/bandit/',
     portrait: 'Bandit_portrait.webp',
     skin: [
         'BanditPortrait0.webp',

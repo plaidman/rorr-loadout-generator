@@ -1,7 +1,7 @@
 export const commando = {
     name: 'Commando',
     color: '#C6833F',
-    subdir: 'images/commando/',
+    subdir: 'images/survivors/commando/',
     portrait: 'Commando_portrait.webp',
     skin: [
         'CommandoPortrait1.webp',

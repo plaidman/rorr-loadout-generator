@@ -1,7 +1,7 @@
 export const chef = {
     name: 'CHEF',
     color: '#BDBEC2',
-    subdir: 'images/chef/',
+    subdir: 'images/survivors/chef/',
     portrait: 'Chef_portrait.webp',
     skin: [
         'CHEFPortrait0.webp',

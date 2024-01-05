@@ -2,7 +2,7 @@ export const loader = {
 
     name: 'Loader',
     color: '#DBDE69',
-    subdir: 'images/loader/',
+    subdir: 'images/survivors/loader/',
     portrait: 'Loader_portrait.webp',
     skin: [
         'LoaderPortrait0.webp',
