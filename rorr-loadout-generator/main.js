@@ -153,7 +153,7 @@ createApp({
 
         const rng = new Math.seedrandom(seedString(addDays));
 
-        this.pickSurvivor(rng, ['robomando']);
+        this.pickSurvivor(rng, []);
         this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
 
         this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
