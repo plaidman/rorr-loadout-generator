@@ -5,7 +5,7 @@ export function monthDayString(addDays = 0) {
     return `${day.toFormat('LLL d')}${getOrdinal(day.day)}`;
 }
 
-export function seedString(addDays = 0) {
+export function dailySeedString(addDays = 0) {
     const day = DateTime.utc().startOf('day').plus({ day: addDays });
     return day.toUnixInteger();
 }

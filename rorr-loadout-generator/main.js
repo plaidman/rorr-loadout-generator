@@ -1,8 +1,7 @@
 import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es.js';
 import { blank } from './survivors/blank.js';
 import { artifactDescriptions, artifactNames, pickArtifacts } from './artifacts.js';
-import { monthDayString, seedString, getTimerData } from './dateutil.js';
-import { hashToLoadout, loadoutToHash } from './hashutil.js';
+import { monthDayString, dailySeedString, getTimerData } from './dateutil.js';
 import { allSurvivors, pickSurvivor } from './survivors.js';
 
 Array.prototype.pickIndex = function (rng) {
@@ -10,6 +9,18 @@ Array.prototype.pickIndex = function (rng) {
 };
 
 document.getElementById('no-script').style = "display: none";
+
+function randomSeedString(rng, len) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let seedString = '';
+
+    while (seedString.length < len) {
+        const index = Math.floor(rng() * chars.length);
+        seedString = `${seedString}${chars[index]}`;
+    }
+
+    return seedString;
+}
 
 createApp({
     prev: ['', '', ''],
@@ -31,7 +42,7 @@ createApp({
     timerString: '',
     isDaily: false,
     newDaily: false,
-    queryString: '',
+    seedString: '',
 
     initialize() {
         this.updateTimer();
@@ -40,7 +51,7 @@ createApp({
         this.handleRoute(route);
 
         if (!route) {
-            route = `s-${this.queryString}`;
+            route = `s-${this.seedString}`;
         }
 
         window.history.replaceState(
@@ -51,38 +62,6 @@ createApp({
         addEventListener('popstate', (event) => {
             this.handleRoute(event.state.route);
         });
-    },
-
-    handleRoute(route) {
-        if (route.startsWith('daily')) {
-            let addDays = parseInt(window.location.pathname.split('/')[3]);
-            if (isNaN(addDays)) addDays = 0;
-
-            this.setDailyState(addDays);
-        } else if (route.startsWith('s-')) {
-            this.setSharedState(route.substring(2));
-        } else {
-            this.setRandomState();
-        }
-    },
-
-    randomButton() {
-        this.setRandomState();
-
-        const route = `s-${this.queryString}`;
-        window.history.pushState(
-            { route }, '',
-            `/rorr-loadout-generator/${route}`,
-        );
-    },
-
-    dailyButton() {
-        this.setDailyState();
-
-        window.history.pushState(
-            { route: 'daily' }, '',
-            '/rorr-loadout-generator/daily',
-        );
     },
 
     updateTimer() {
@@ -107,37 +86,64 @@ createApp({
         }
     },
 
-    setSharedState(loadoutString) {
+    handleRoute(route) {
+        if (route.startsWith('daily')) {
+            let addDays = parseInt(window.location.pathname.split('/')[3]);
+            if (isNaN(addDays)) addDays = 0;
+
+            this.setDailyState(addDays);
+        } else if (route.startsWith('s-')) {
+            this.setSharedState(route.substring(2));
+        } else {
+            this.setRandomState();
+        }
+    },
+
+    randomButton() {
+        this.setRandomState();
+
+        const route = `s-${this.seedString}`;
+        window.history.pushState(
+            { route }, '',
+            `/rorr-loadout-generator/${route}`,
+        );
+    },
+
+    dailyButton() {
+        this.setDailyState();
+
+        window.history.pushState(
+            { route: 'daily' }, '',
+            '/rorr-loadout-generator/daily',
+        );
+    },
+
+    setSharedState(seedString) {
         this.subtitle = 'Shared Loadout';
         this.isDaily = false;
 
-        const loadout = hashToLoadout(loadoutString);
+        const rng = new Math.seedrandom(seedString);
 
-        this.survivor = allSurvivors[loadout.survivorNum];
-        this.skin = this.survivor.skin[loadout.skin];
-        this.primary = this.survivor.primary[loadout.primary];
-        this.secondary = this.survivor.secondary[loadout.secondary]
-        this.utility = this.survivor.utility[loadout.utility];
-        this.special = this.survivor.special[loadout.special];
-        this.artifacts = loadout.artifacts;
-
-        this.queryString = loadoutString;
+        this.pickSurvivor(rng, []);
+        this.artifacts = pickArtifacts(rng, []);
         this.outputPicks();
+
+        this.prev = [this.survivor.name];
     },
 
     setRandomState() {
         this.subtitle = 'Random Loadout';
         this.isDaily = false;
 
-        const rng = new Math.seedrandom();
+        this.seedString = randomSeedString(new Math.seedrandom(), 8);
+        const rng = new Math.seedrandom(this.seedString);
 
         this.pickSurvivor(rng, this.prev);
         this.artifacts = pickArtifacts(rng, []);
+        this.outputPicks();
+
         this.prev.shift();
         this.prev.push(this.survivor.name);
-
-        this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
-        this.outputPicks();
     },
 
     setDailyState(addDays = 0) {
@@ -151,12 +157,11 @@ createApp({
         }
         this.subtitle = newSub;
 
-        const rng = new Math.seedrandom(seedString(addDays));
+        const seedString = dailySeedString(addDays);
+        const rng = new Math.seedrandom(seedString);
 
         this.pickSurvivor(rng, []);
         this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
-
-        this.queryString = loadoutToHash({ ...this.loadout, artifacts: this.artifacts });
         this.outputPicks();
     },
 
@@ -194,14 +199,12 @@ createApp({
 
     outputPicks() {
         console.log('generated', {
-            queryString: this.queryString,
             survivor: this.survivor.name,
             primary: this.primary.name,
             secondary: this.secondary.name,
             utility: this.utility.name,
             special: this.special.name,
             artifacts: this.artifacts.map((i) => { return artifactNames[i] }),
-            isDaily: this.isDaily,
         });
     },
 }).mount();
