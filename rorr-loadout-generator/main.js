@@ -2,10 +2,14 @@ import { createApp } from 'https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es
 import { blank } from './survivors/blank.js';
 import { artifactDescriptions, artifactNames, pickArtifacts } from './artifacts.js';
 import { monthDayString, dailySeedString, getTimerData } from './dateutil.js';
-import { allSurvivors, pickSurvivor } from './survivors.js';
+import { pickSurvivor } from './survivors.js';
 
 Array.prototype.pickIndex = function (rng) {
     return Math.floor(rng() * this.length);
+};
+
+Array.prototype.pick = function (rng) {
+    return this[this.pickIndex(rng)];
 };
 
 document.getElementById('no-script').style = "display: none";
@@ -25,7 +29,6 @@ function randomSeedString(rng, len) {
 createApp({
     prev: ['', '', ''],
 
-    loadout: {},
     survivor: blank,
     skin: blank.skin[0],
     primary: blank.primary[0],
@@ -166,14 +169,14 @@ createApp({
     },
 
     pickSurvivor(rng, exclude) {
-        this.loadout = pickSurvivor(rng, exclude);
+        const loadout = pickSurvivor(rng, exclude);
 
-        this.survivor = allSurvivors[this.loadout.survivorNum];
-        this.skin = this.survivor.skin[this.loadout.skin];
-        this.primary = this.survivor.primary[this.loadout.primary];
-        this.secondary = this.survivor.secondary[this.loadout.secondary]
-        this.utility = this.survivor.utility[this.loadout.utility];
-        this.special = this.survivor.special[this.loadout.special];
+        this.survivor = loadout.survivor;
+        this.skin = loadout.skin;
+        this.primary = loadout.primary;
+        this.secondary = loadout.secondary;
+        this.utility = loadout.utility;
+        this.special = loadout.special;
     },
 
     getArtifactIcon(index) {

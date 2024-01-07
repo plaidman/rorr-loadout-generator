@@ -23,13 +23,11 @@ export const allSurvivors = [
 ];
 
 export function pickSurvivor(rng, exclude) {
-    let survivorNum;
     let survivor;
     let count = 0;
 
     while (true) {
-        survivorNum = allSurvivors.pickIndex(rng);
-        survivor = allSurvivors[survivorNum];
+        survivor = allSurvivors.pick(rng);
 
         const isInExclude = exclude.some((item) => {
             if (item.toLowerCase() === survivor.name.toLowerCase()) return true;
@@ -41,11 +39,11 @@ export function pickSurvivor(rng, exclude) {
         count++;
     }
 
-    let skin = survivor.skin.pickIndex(rng);
-    let primary = survivor.primary.pickIndex(rng);
-    let secondary = survivor.secondary.pickIndex(rng);
-    let utility = survivor.utility.pickIndex(rng);
-    let special = survivor.special.pickIndex(rng);
+    let skin = survivor.skin.pick(rng);
+    let primary = survivor.primary.pick(rng);
+    let secondary = survivor.secondary.pick(rng);
+    let utility = survivor.utility.pick(rng);
+    let special = survivor.special.pick(rng);
 
-    return { survivorNum, skin, primary, secondary, utility, special }
+    return { survivor, skin, primary, secondary, utility, special };
 }
