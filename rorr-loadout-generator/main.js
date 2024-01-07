@@ -3,28 +3,10 @@ import { blank } from './survivors/blank.js';
 import { artifactDescriptions, artifactNames, pickArtifacts } from './artifacts.js';
 import { monthDayString, dailySeedString, getTimerData } from './dateutil.js';
 import { pickSurvivor } from './survivors.js';
-
-Array.prototype.pickIndex = function (rng) {
-    return Math.floor(rng() * this.length);
-};
-
-Array.prototype.pick = function (rng) {
-    return this[this.pickIndex(rng)];
-};
+import { pickItems } from './items.js';
+import { randomSeedString } from './randutil.js';
 
 document.getElementById('no-script').style = "display: none";
-
-function randomSeedString(rng, len) {
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let seedString = '';
-
-    while (seedString.length < len) {
-        const index = Math.floor(rng() * chars.length);
-        seedString = `${seedString}${chars[index]}`;
-    }
-
-    return seedString;
-}
 
 createApp({
     prev: ['', '', ''],
@@ -36,6 +18,7 @@ createApp({
     utility: blank.utility[0],
     special: blank.special[0],
 
+    items: [],
     artifacts: [],
     artifactNames: artifactNames,
     artifactDesc: null,
@@ -129,6 +112,7 @@ createApp({
 
         this.pickSurvivor(rng, []);
         this.artifacts = pickArtifacts(rng, []);
+        this.items = pickItems(rng);
         this.outputPicks();
 
         this.prev = [this.survivor.name];
@@ -143,6 +127,7 @@ createApp({
 
         this.pickSurvivor(rng, this.prev);
         this.artifacts = pickArtifacts(rng, []);
+        this.items = pickItems(rng);
         this.outputPicks();
 
         this.prev.shift();
@@ -165,6 +150,7 @@ createApp({
 
         this.pickSurvivor(rng, []);
         this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
+        this.items = pickItems(rng);
         this.outputPicks();
     },
 
@@ -207,7 +193,8 @@ createApp({
             secondary: this.secondary.name,
             utility: this.utility.name,
             special: this.special.name,
-            artifacts: this.artifacts.map((i) => { return artifactNames[i] }),
+            artifacts: this.artifacts.map((i) => artifactNames[i]),
+            items: this.items.map((i) => i.name),
         });
     },
 }).mount();

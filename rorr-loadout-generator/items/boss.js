@@ -24,3 +24,8 @@ export const bossItems = [
         image: "boss/Scorchingshellpiece.webp",
     },
 ];
+
+export const nozzle = {
+    name: "Nematocyst Nozzle",
+    image: "boss/Nematocystnozzle.webp",
+};

@@ -1,18 +1,26 @@
+import { bossItems, nozzle } from './items/boss.js';
 import { commonItems } from './items/common.js';
+import { equipItems } from './items/equipment.js';
 import { rareItems } from './items/rare.js';
 import { uncommonItems } from './items/uncommon.js';
 
-const commonHealing = commonItems.filter((item) => item.healing);
-const commonUtility = commonItems.filter((item) => item.utility);
-const commonDamage = commonItems.filter((item) => item.damage);
+const commonHealing = [];
+const commonUtility = [];
+const commonDamage = [];
+commonItems.forEach((item) => {
+    if (item.healing) commonHealing.push(item);
+    if (item.utility) commonUtility.push(item);
+    if (item.damage) commonDamage.push(item);
+});
 
-const uncommonHealing = uncommonItems.filter((item) => item.healing);
-const uncommonUtility = uncommonItems.filter((item) => item.utility);
-const uncommonDamage = uncommonItems.filter((item) => item.damage);
-
-const rareHealing = rareItems.filter((item) => item.healing);
-const rareUtility = rareItems.filter((item) => item.utility);
-const rareDamage = rareItems.filter((item) => item.damage);
+const uncommonHealing = [];
+const uncommonUtility = [];
+const uncommonDamage = [];
+uncommonItems.forEach((item) => {
+    if (item.healing) uncommonHealing.push(item);
+    if (item.utility) uncommonUtility.push(item);
+    if (item.damage) uncommonDamage.push(item);
+});
 
 // common items: 32 pick 4, 7 total
 // common healing: 10 pick 1
@@ -25,13 +33,31 @@ const rareDamage = rareItems.filter((item) => item.damage);
 // uncommon damage: 17 pick 1
 
 // rare items: 31 pick 3
-// rare healing: 6
-// rare utility: 16
-// rare damage: 18
-
 // boss items: 6 pick 1
 // equip items: 26 pick 3 + nozzle
 
 export function pickItems(rng) {
+    const common = [commonHealing.pick(rng)]
+        .pushRand(commonUtility, rng)
+        .pushRand(commonDamage, rng)
+        .pushRand(commonItems, rng)
+        .pushRand(commonItems, rng)
+        .pushRand(commonItems, rng);
 
+    const uncommon = [uncommonHealing.pick(rng)]
+        .pushRand(uncommonUtility, rng)
+        .pushRand(uncommonDamage, rng)
+        .pushRand(uncommonItems, rng);
+
+    const rare = [rareItems.pick(rng)]
+        .pushRand(rareItems, rng);
+
+    const boss = [bossItems.pick(rng)];
+    boss.push(nozzle);
+
+    const equip = [equipItems.pick(rng)]
+        .pushRand(equipItems, rng)
+        .pushRand(equipItems, rng);
+
+    return common.concat(uncommon).concat(rare).concat(boss).concat(equip);
 }
