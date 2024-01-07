@@ -70,7 +70,25 @@ body.alt-font {
     padding: .5rem;
 }
 
-.artifacts:not(:last-child) {
+.artifact-desc {
+    margin-top: -1rem;
+    margin-bottom: 1.25rem;
+}
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px 15px;
+}
+
+.items img {
+    max-width: 30px;
+    max-height: 30px;
+}
+
+.items:not(:last-child) {
     margin-bottom: .5rem;
 }
 

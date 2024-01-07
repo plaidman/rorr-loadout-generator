@@ -149,7 +149,7 @@ createApp({
         const rng = new Math.seedrandom(seedString);
 
         this.pickSurvivor(rng, []);
-        this.artifacts = pickArtifacts(rng, ['command', 'prestige']);
+        this.artifacts = pickArtifacts(rng, ['prestige']);
         this.items = pickItems(rng);
         this.outputPicks();
     },
@@ -179,10 +179,16 @@ createApp({
     },
 
     getArtifactDesc(index) {
-        this.artifactDesc = artifactDescriptions[index];
+        let description = artifactDescriptions[index];
+
+        if (this.artifactDesc === description) {
+            description = null;
+        }
+
+        this.artifactDesc = description;
     },
 
-    resetDesc() {
+    resetArtifactDesc() {
         this.artifactDesc = null;
     },
 

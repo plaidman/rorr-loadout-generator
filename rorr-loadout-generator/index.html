@@ -96,15 +96,23 @@
                         <li class="has-text-light">{{special.name}}</li>
                     </ul>
 
+                    <p class="has-text-light mb-1 has-text-weight-semibold is-size-5">Artifacts:</p>
                     <div class="artifacts box has-background-black-ter">
                         <figure v-for="(n,i) in 14" class="image is-clickable" @click="getArtifactDesc(i)">
                             <img :src="'/rorr-loadout-generator/' + getArtifactIcon(i)" />
                         </figure>
                     </div>
 
-                    <div v-if="artifactDesc" class="has-text-light is-size-7 mx-2">
-                        <button class="delete is-pulled-right" @click="resetDesc()"></button>
+                    <div v-if="artifactDesc" class="artifact-desc has-text-light is-size-7 mx-2">
+                        <button class="delete is-pulled-right" @click="resetArtifactDesc()"></button>
                         {{artifactDesc}}
+                    </div>
+
+                    <p class="has-text-light mb-1 has-text-weight-semibold is-size-5">Command Item List:</p>
+                    <div class="items box has-background-black-ter">
+                        <figure v-for="item in items" class="image is-clickable">
+                            <img :src="'/rorr-loadout-generator/images/items/' + item.image" />
+                        </figure>
                     </div>
                 </div>
 
